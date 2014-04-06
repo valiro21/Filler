@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DrawController : MonoBehaviour {
 	public static float LeftWall, RightWall, UpperWall, DownWall, xscale, yscale;
-	public static float LeftWallS =0.05f, UpperWallS = 0.6f, RightWallS=0.95f, DownWallS=0.05f, ratio = (float)Screen.width/ (float)Screen.height, scale = 0.01f;
+	public static float LeftWallS =0.02f, UpperWallS = 0.7f, RightWallS=0.98f, DownWallS=0.02f, ratio = (float)Screen.width/ (float)Screen.height, scale = 0.01f;
 
 	void CreatePoll ( float x, float y, float W, float H  ) {
 		Vector3 tmp = new Vector3( x + W/2, y + H/2, 0 );

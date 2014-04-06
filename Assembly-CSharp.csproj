@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts.cs" />
+     <Compile Include="Assets\Scripts\Behavior\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\Behavior\TempPlayerBehavior.cs" />
      <Compile Include="Assets\Scripts\Controller\DrawController.cs" />
+     <Compile Include="Assets\Scripts\Controller\GUIController.cs" />
      <Compile Include="Assets\Scripts\Controller\GameController.cs" />
      <Compile Include="Assets\Scripts\Controller\InputController.cs" />
   </ItemGroup>
