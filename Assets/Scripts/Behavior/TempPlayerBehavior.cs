@@ -5,11 +5,31 @@ public class TempPlayerBehavior : MonoBehaviour {
 
 	public bool Frozen = false;
 	public float RadiusLerpSpeed = 1f;
+	Color tmp = DrawController.Background.renderer.material.color;
+	Vector3 vel;
 
+	void NormalColor () {
+		DrawController.Background.renderer.material.color = tmp;
+	}
+
+	float GetScreenSize  () {
+		float Radius = gameObject.transform.localScale.x;
+		Radius *= Screen.height / 16;
+		float Area = Radius * Radius * Mathf.PI;
+		;
+		return 100 * Area / DrawController.Area;
+	}
+	
 	public void Unfreeze () {
-		transform.rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
-		transform.rigidbody.useGravity = true;
-		Frozen = false;
+		if ( Frozen ) {
+			transform.rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+			transform.rigidbody.useGravity = true;
+			Frozen = false;
+			float r = gameObject.transform.localScale.x;
+			GameController.score += Mathf.RoundToInt((Mathf.PI * r * r));
+			GameController.cleared += GetScreenSize ();
+			GameController.CheckCompletion ();
+		}
 	}
 
 	void OnCollisionEnter ( Collision collision ) {
@@ -17,10 +37,20 @@ public class TempPlayerBehavior : MonoBehaviour {
 			if ( collision.collider.tag == "Ball" )
 				Unfreeze ();
 			else if  ( collision.collider.tag == "Bullet" ) {
-				Unfreeze ();
-				//GameController.LoseHP ();
+				GameController.LoseHP ();
+				GameController.DestroyCurrentBall ();
 			}
 		}
+	}
+
+	public void Resume () {
+		rigidbody.isKinematic = false;
+		rigidbody.velocity = vel;
+	}
+
+	public void Pause () {
+		vel = rigidbody.velocity;
+		rigidbody.isKinematic = true;
 	}
 	
 	// Update is called once per frame
